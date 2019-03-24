@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <constant name = "struts.devMode" value = "true" />
+
+
+    <package name="default" namespace="/" extends = "struts-default">
+        <interceptors>
+            <interceptor name = "myinterceptor"
+                         class = "actions.MyInterceptor" />
+        </interceptors>
+
+        <action name = "setting"
+                class = "actions.settingsAction"
+                method = "executeSelectSettings">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">2097152</param>
+
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <!--<interceptor-ref name = "params"/>-->
+            <!--<interceptor-ref name = "timer" />-->
+            <interceptor-ref name = "defaultStack"/>
+            <!--<interceptor-ref name = "myinterceptor" />-->
+
+            <result name="input">index.jsp</result>
+            <result name = "success">/setting.jsp</result>
+            <result name = "error">/error.jsp</result>
+
+        </action>
+
+
+
+        <action name = "savesetting"
+                class = "actions.settingsAction"
+                method = "executeSaveOrUpdate" >
+            <!--<interceptor-ref name = "params"/>-->
+            <!--<interceptor-ref name = "timer" />-->
+            <interceptor-ref name = "defaultStack"/>
+
+            <!--<interceptor-ref name = "myinterceptor" />-->
+
+            <result name="input">setting.jsp</result>
+            <result name = "success"  >/setting.jsp</result>
+            <result name = "error">/error.jsp</result>
+
+        </action>
+    </package>
+</struts>
